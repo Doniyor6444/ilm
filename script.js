@@ -1,4 +1,3 @@
-// PDF.js worker fayl manzilini belgilash
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
 
 const pdfFiles = {
@@ -13,7 +12,7 @@ const loadingIndicator = document.getElementById('loading');
 const loadingText = document.getElementById('loading-text');
 let pdfDoc = null;
 let scale = 1.5;
-let loadedPages = new Set(); // Track loaded pages
+let loadedPages = new Set();
 
 function renderPage(page) {
     const canvas = document.createElement('canvas');
@@ -29,53 +28,49 @@ function renderPage(page) {
     pdfViewer.appendChild(canvas);
 }
 
-function loadPage(pageNumber) {
-    pdfDoc.getPage(pageNumber).then(renderPage);
-}
-
 function loadPDF(lang) {
-    const url = `${pdfFiles[lang]}?t=${new Date().getTime()}`; // URL yangilash
-    loadingIndicator.style.display = 'flex'; // Yuklash belgisini ko'rsatish
+    const url = `${pdfFiles[lang]}?t=${new Date().getTime()}`;
+    loadingIndicator.style.display = 'flex';
     pdfjsLib.getDocument(url).promise.then(function(pdf) {
         pdfDoc = pdf;
-        loadPage(1); // Dastlabki sahifani yuklash
-    }).then(() => {
-        loadingIndicator.style.display = 'none'; // Yuklash belgisini yashirish
+        loadingIndicator.style.display = 'none';
+        loadVisiblePages(); // Avvalgi sahifalarni yuklash
     }).catch(error => {
-        loadingIndicator.style.display = 'none'; // Xatolik yuz bersa, yuklash belgisini yashirish
+        loadingIndicator.style.display = 'none';
         console.error('PDF yuklashda xatolik:', error);
     });
 }
 
+function loadVisiblePages() {
+    const scrollTop = pdfViewer.scrollTop;
+    const viewerHeight = pdfViewer.clientHeight;
+    const numPages = pdfDoc.numPages;
+
+    for (let i = 1; i <= numPages; i++) {
+        const pageOffset = (i - 1) * (viewerHeight / 2); // Sahifa offsetini hisoblash
+        if (scrollTop + viewerHeight > pageOffset && !loadedPages.has(i)) {
+            pdfDoc.getPage(i).then(renderPage);
+            loadedPages.add(i); // Yuklangan sahifani qo'shish
+        }
+    }
+}
+
 // Dastlabki yuklash
 window.onload = function() {
-    loadingIndicator.style.display = 'flex'; // Sayt yuklayotganda yuklash belgisini ko'rsatish
+    loadingIndicator.style.display = 'flex';
     loadPDF(languageSelector.value);
 };
 
 // Tilni o'zgartirish
 languageSelector.addEventListener('change', function() {
     pdfViewer.innerHTML = ''; // Avvalgi sahifalarni tozalash
-    loadedPages.clear(); // Yangi til uchun yuklangan sahifalarni tozalash
-    loadingIndicator.style.display = 'flex'; // Yuklash belgisini ko'rsatish
+    loadedPages.clear(); // Yuklangan sahifalarni tozalash
+    loadingIndicator.style.display = 'flex';
     loadPDF(this.value);
 });
 
-// Skroll hodisasi
-pdfViewer.addEventListener('scroll', function() {
-    const scrollTop = pdfViewer.scrollTop;
-    const viewerHeight = pdfViewer.clientHeight;
-
-    for (let i = 1; i <= pdfDoc.numPages; i++) {
-        if (!loadedPages.has(i)) {
-            const pageOffset = (i - 1) * viewerHeight; // Sahifa offsetini hisoblash
-            if (scrollTop + viewerHeight > pageOffset) {
-                loadPage(i);
-                loadedPages.add(i); // Yuklangan sahifani qo'shish
-            }
-        }
-    }
-});
+// PDF ko'rinishi bo'yicha sahifalarni yuklash
+pdfViewer.addEventListener('scroll', loadVisiblePages);
 
 // i18next sozlamalari
 i18next.init({
@@ -95,7 +90,6 @@ function updateContent() {
     loadingText.textContent = i18next.t('loading');
 }
 
-// Til o'zgarishini yangilash
 languageSelector.addEventListener('change', function() {
     i18next.changeLanguage(this.value);
     updateContent();
