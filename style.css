@@ -1,0 +1,62 @@
+body {
+    background-color: #f8f9fa;
+    background-image: url('2111.w039.n003.23B.p1.23.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #333;
+}
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+}
+.viewer-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    position: relative;
+}
+#pdf-viewer {
+    height: 80vh;
+    overflow-y: scroll;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    position: relative;
+}
+canvas {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+.language-selector {
+    margin-bottom: 10px;
+}
+#loading {
+    display: none; /* Avvaldan yashirin */
+    text-align: center;
+    margin: 10px 0;
+    display: flex; /* Flex qoidalarini qo'llash */
+    justify-content: center; /* Markazga joylash */
+    align-items: center; /* Vertikal markazlash */
+}
+footer {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 0 0 10px 10px;
+}
+/* Loading animatsiyasi */
+.spinner-border {
+    width: 2rem;
+    height: 2rem;
+    border-width: 0.24em;
+    color: #505355; /* Spinner rangi */
+    margin-left: 5px; /* Matndan ajratish */
+}
