@@ -1,10 +1,10 @@
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
 
-  const pdfFiles = {
-      'uz': 'pdf/jizzak-compressed.pdf',
-      'ru': 'pdf/jizzak.pdf',
-      'en': 'pdf/jizzak-compressed.pdf'
-  };
+const pdfFiles = {
+    'uz': 'pdf/jizzak-compressed.pdf',
+    'ru': 'pdf/Ruscha Jizzax-compressed.pdf',
+    'en': 'pdf/English Jizzax-compressed.pdf'
+};
 
 const languageSelector = document.getElementById('language');
 const pdfViewer = document.getElementById('pdf-viewer');
@@ -72,17 +72,17 @@ languageSelector.addEventListener('change', function() {
 // PDF ko'rinishi bo'yicha sahifalarni yuklash
 pdfViewer.addEventListener('scroll', loadVisiblePages);
 
-  // i18next sozlamalari
-  i18next.init({
-      lng: 'uz',
-      resources: {
-          uz: { translation: { welcome: "Xush kelibsiz", loading: "Yuklanmoqda..." }},
-          ru: { translation: { welcome: "Добро пожаловать", loading: "Загрузка..." }},
-          en: { translation: { welcome: "Welcome", loading: "Loading..." }}
-      }
-  }, function(err, t) {
-      updateContent();
-  });
+// i18next sozlamalari
+i18next.init({
+    lng: 'uz',
+    resources: {
+        uz: { translation: { welcome: "JIZZAX MO̒JIZALAR O̒LKASI", loading: "Yuklanmoqda..." }},
+        ru: { translation: { welcome: "Джизак – страна чудес", loading: "Загрузка..." }},
+        en: { translation: { welcome: "Jizzax is a wonderland", loading: "Loading..." }}
+    }
+}, function(err, t) {
+    updateContent();
+});
 
 function updateContent() {
     document.title = i18next.t('welcome');
