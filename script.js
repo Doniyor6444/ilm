@@ -2,8 +2,8 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 
 const pdfFiles = {
     'uz': 'pdf/jizzak-compressed.pdf',
-    'ru': 'pdf/jizzak.pdf',
-    'en': 'pdf/jizzak-compressed.pdf'
+    'ru': 'pdf/Ruscha Jizzax-compressed.pdf',
+    'en': 'pdf/English Jizzax-compressed.pdf'
 };
 
 const languageSelector = document.getElementById('language');
@@ -76,9 +76,9 @@ pdfViewer.addEventListener('scroll', loadVisiblePages);
 i18next.init({
     lng: 'uz',
     resources: {
-        uz: { translation: { welcome: "Xush kelibsiz", loading: "Yuklanmoqda..." }},
-        ru: { translation: { welcome: "Добро пожаловать", loading: "Загрузка..." }},
-        en: { translation: { welcome: "Welcome", loading: "Loading..." }}
+        uz: { translation: { welcome: "JIZZAX MO̒JIZALAR O̒LKASI", loading: "Yuklanmoqda..." }},
+        ru: { translation: { welcome: "Джизак – страна чудес", loading: "Загрузка..." }},
+        en: { translation: { welcome: "Jizzax is a wonderland", loading: "Loading..." }}
     }
 }, function(err, t) {
     updateContent();
