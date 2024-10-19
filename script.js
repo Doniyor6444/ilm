@@ -14,7 +14,16 @@ const mainTitles = {
     'en': "THE LAND OF WONDERS - JIZZAX"
 };
 
-
+const leadTexts = {
+    'uz': "Kitobni o'qish, bilimni oshirishning kalitidir",
+    'ru': "Чтение книг — это ключ к обогащению знаний",
+    'en': "Reading books is the key to enhancing knowledge"
+=======
+    'uz': 'pdf/jizzak-compressed.pdf',
+    'ru': 'pdf/Ruscha Jizzax-compressed.pdf',
+    'en': 'pdf/English Jizzax-compressed.pdf'
+>>>>>>> 970db3bc9e483f64ce57e213741b15a51696a6d5
+};
 
 const languageSelector = document.getElementById('language');
 const pdfViewer = document.getElementById('pdf-viewer');
